@@ -1,13 +1,13 @@
 package com.dev.minhasfinancas.model.entity;
 
+import com.dev.minhasfinancas.model.enums.StatusLancamento;
+import com.dev.minhasfinancas.model.enums.TipoLancamento;
 import lombok.*;
-import org.springframework.data.convert.Jsr310Converters;
 import org.springframework.data.jpa.convert.threeten.Jsr310JpaConverters;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Entity
 @Table(name = "lancamento", schema = "financas")
