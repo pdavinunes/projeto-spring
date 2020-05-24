@@ -2,6 +2,7 @@ package com.dev.minhasfinancas.model.entity;
 
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -10,6 +11,7 @@ import java.util.Objects;
 @Table( name = "usuario", schema = "financas")
 @Builder
 @Data
+@NoArgsConstructor
 public class Usuario {
 
     @Id
