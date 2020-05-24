@@ -28,7 +28,6 @@ public class UsuarioServiceTest {
         repository.deleteAll();
 
         service.validarEmail("email@email.com");
-
     }
 
     @Test
