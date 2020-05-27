@@ -1,5 +1,6 @@
 package com.dev.minhasfinancas.api.resource;
 
+import com.dev.minhasfinancas.api.dto.AtualizaStatusDTO;
 import com.dev.minhasfinancas.api.dto.LancamentoDTO;
 import com.dev.minhasfinancas.exception.RegraNegocioException;
 import com.dev.minhasfinancas.model.entity.Lancamento;
@@ -9,6 +10,7 @@ import com.dev.minhasfinancas.model.enums.TipoLancamento;
 import com.dev.minhasfinancas.service.LancamentoService;
 import com.dev.minhasfinancas.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
+import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -72,6 +74,24 @@ public class LancamentoResource {
             }
 
         }).orElseGet(() -> new ResponseEntity("Lancamento não encontrado", HttpStatus.BAD_REQUEST));
+    }
+
+    @PutMapping("/{id}/atualiza-status")
+    public ResponseEntity atualizarStatus(@PathVariable("id") Long id, @RequestBody AtualizaStatusDTO dto) {
+        return service.obterPorId(id).map( entity -> {
+            StatusLancamento status = StatusLancamento.valueOf(dto.getStatus());
+            if(status == null) {
+                return ResponseEntity.badRequest().body("Status inválido");
+            }
+
+            try{
+                entity.setStatus(status);
+                service.atualizar(entity);
+                return ResponseEntity.ok(entity);
+            }catch(RegraNegocioException e) {
+                return ResponseEntity.badRequest().body(e.getMessage());
+            }
+        }).orElseGet(() -> new ResponseEntity  ("Não foi possível atualizar o status", HttpStatus.BAD_REQUEST));
     }
 
     @DeleteMapping("/{id}")
