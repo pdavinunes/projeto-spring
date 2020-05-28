@@ -57,13 +57,13 @@ class CadastroUsuario extends React.Component {
             email: this.state.email,
             senha: this.state.senha
         }
-        this.validar()
-        /*this.service.salvar(usuario).then(resp => {
+        
+        this.service.salvar(usuario).then(resp => {
             msgSucesso('Usuário cadastrado com sucesso!')
             this.prepareLogin()
         }).catch(e => {
             msgErro(e.response.data)
-        })*/
+        })
     }
 
     prepareLogin = () => {

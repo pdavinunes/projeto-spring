@@ -27,7 +27,7 @@ export function msgErro(msg){
 }
 
 export function msgSucesso(msg){
-    mostrarMensagem('Sucesoo', msg, 'success')
+    mostrarMensagem('Sucesso', msg, 'success')
 }
 
 export function msgAlert(msg){
