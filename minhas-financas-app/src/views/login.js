@@ -17,6 +17,7 @@ class Login extends React.Component {
             email: this.state.email,
             senha: this.state.senha
         }).then(resp => {
+            localStorage.setItem('_usuario_logado', JSON.stringify(resp.data) )
             this.props.history.push("/home")
         }).catch(erro => {
             this.setState({msgErro: erro.response.data})
