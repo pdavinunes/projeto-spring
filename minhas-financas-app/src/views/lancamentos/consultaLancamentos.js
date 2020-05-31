@@ -47,7 +47,9 @@ class ConsultaLancamentos extends React.Component {
         this.service
             .consultar(filtro)
             .then(resp => {
-                console.log(resp.data);
+                if(resp.data.length < 1) {
+                    msgs.msgAlert("Nenhum lançamento encontrado!")
+                }
 
                 this.setState({ lancamentos: resp.data })
             }).catch(e => {
