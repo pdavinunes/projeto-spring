@@ -17,11 +17,25 @@ class CadastroLancamentos extends React.Component {
         mes: '',
         tipo: '',
         status: '',
+        usuario: null,
     }
 
     constructor() {
         super();
         this.service = new LancamentoService()
+    }
+
+    componentDidMount(){
+        const params = this.props.match.params
+        if(params.id) {
+            this.service.obterPorId(params.id)
+                .then(resp => {
+                    this.setState({...resp.data})
+                })
+                .catch(error => {
+                    msgs.msgErro(error.response.data)
+                })
+        }
     }
 
     handleChange = (event) => {
@@ -40,6 +54,19 @@ class CadastroLancamentos extends React.Component {
             .then(resp => {
                 this.props.history.push("/consulta-lancamentos")   
                 msgs.msgSucesso("Lançamento cadastrado com sucesso")})
+            .catch(erro => {
+                msgs.msgErro(erro.response.data)
+            })
+    }
+
+    update = () => {
+        const {descricao, valor, mes, ano, tipo, id, usuario, status} = this.state;
+        const lancamento = {descricao, valor, mes, ano, tipo, id, usuario, status}
+        this.service
+            .update(lancamento)
+            .then(resp => {
+                this.props.history.push("/consulta-lancamentos")   
+                msgs.msgSucesso("Lançamento atualizado com sucesso")})
             .catch(erro => {
                 msgs.msgErro(erro.response.data)
             })
@@ -114,6 +141,7 @@ class CadastroLancamentos extends React.Component {
                 <div className="row">
                     <div className="col-md-6">
                         <button className="btn btn-success" onClick={this.submit}>Salvar</button>
+                        <button className="btn btn-primary" onClick={this.update}>Atualizar</button>
                         <button onClick={e => this.props.history.push("/consulta-lancamentos")}className="btn btn-danger">Cancelar</button>
                     </div>
                 </div>
