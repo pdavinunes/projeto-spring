@@ -3,8 +3,9 @@ import { withRouter } from 'react-router-dom'
 import FormGroup from '../../components/form-group';
 import Card from '../../components/card';
 import SelectMenu from '../../components/selectMenu';
-
+import * as msgs from '../../components/toastr';
 import LancamentoService from '../../app/service/lancamentoService'
+import LocalStorageService from '../../app/service/localstoreService'
 
 class CadastroLancamentos extends React.Component {
 
@@ -31,7 +32,16 @@ class CadastroLancamentos extends React.Component {
     }
 
     submit = () => {
-        console.log(this.state)
+        const usuarioLogado = LocalStorageService.obterItem('_usuario_logado')
+        const {descricao, valor, mes, ano, tipo} = this.state;
+        const lancamento = {descricao, valor, mes, ano, tipo, usuario: usuarioLogado.id}
+        this.service
+            .salvar(lancamento)
+            .then(resp => {
+                msgs.msgSucesso("Lançamento cadastrado com sucesso")})
+            .catch(erro => {
+                msgs.msgErro(erro.response.data)
+            })
     }
 
     render() {
