@@ -2,9 +2,9 @@ import React from 'react';
 
 export default (props) => {
 
-    const options = props.lista.map( op => {
+    const options = props.lista.map( (op, index) => {
         return (
-            <option key={op.index} value={op.value}>{op.label}</option>
+            <option key={index} value={op.value}>{op.label}</option>
         )
     })
 
