@@ -12,15 +12,25 @@ export default props => {
                 <td>{row.mes}</td>
                 <td>{row.status}</td>
                 <td>
-                    <button type="button" 
-                            className="btn btn-primary"
-                            onClick={e => props.editAction(row.id)}>
-                                Editar
+                    <button type="button"
+                        className="btn btn-success"
+                        onClick={e => props.alterarStatus(row, 'EFETIVADO')}>
+                        Efetivar
                     </button>
                     <button type="button"
-                            className="btn btn-danger"
-                            onClick={e => props.deleteAction(row)}>
-                                Deletar
+                        className="btn btn-warning"
+                        onClick={e => props.alterarStatus(row, 'CANCELADO')}>
+                        Cancelar
+                    </button>
+                    <button type="button"
+                        className="btn btn-primary"
+                        onClick={e => props.editAction(row.id)}>
+                        Editar
+                    </button>
+                    <button type="button"
+                        className="btn btn-danger"
+                        onClick={e => props.deleteAction(row)}>
+                        Deletar
                     </button>
                 </td>
             </tr>
