@@ -38,6 +38,7 @@ class CadastroLancamentos extends React.Component {
         this.service
             .salvar(lancamento)
             .then(resp => {
+                this.props.history.push("/consulta-lancamentos")   
                 msgs.msgSucesso("Lançamento cadastrado com sucesso")})
             .catch(erro => {
                 msgs.msgErro(erro.response.data)
@@ -50,7 +51,7 @@ class CadastroLancamentos extends React.Component {
         const meses = this.service.obterListaMeses();
 
         return (
-            <Card>
+            <Card title="Cadastrar Lançamento">
                 <div className="row">
                     <div className="col-md-12">
                         <FormGroup id="inputDescricao" label="Descrição: *">
@@ -113,7 +114,7 @@ class CadastroLancamentos extends React.Component {
                 <div className="row">
                     <div className="col-md-6">
                         <button className="btn btn-success" onClick={this.submit}>Salvar</button>
-                        <button className="btn btn-danger">Cancelar</button>
+                        <button onClick={e => this.props.history.push("/consulta-lancamentos")}className="btn btn-danger">Cancelar</button>
                     </div>
                 </div>
             </Card>
