@@ -10,7 +10,6 @@ import com.dev.minhasfinancas.model.enums.TipoLancamento;
 import com.dev.minhasfinancas.service.LancamentoService;
 import com.dev.minhasfinancas.service.UsuarioService;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.Response;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -100,6 +99,26 @@ public class LancamentoResource {
             service.deletar(entity);
             return new ResponseEntity(HttpStatus.NO_CONTENT);
         }).orElseGet(() -> new ResponseEntity("Lancamento não encontrado", HttpStatus.BAD_REQUEST));
+    }
+
+    @GetMapping("{id}")
+    public ResponseEntity obterLancamento(@PathVariable("id") Long id) {
+        return service.obterPorId(id)
+                .map( lancamento -> new ResponseEntity(converter(lancamento), HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity(HttpStatus.NOT_FOUND));
+    }
+
+    private LancamentoDTO converter(Lancamento lancamento) {
+        return LancamentoDTO.builder()
+                .id(lancamento.getId())
+                .descricao(lancamento.getDescricao())
+                .valor(lancamento.getValor())
+                .mes(lancamento.getMes())
+                .ano(lancamento.getAno())
+                .status(lancamento.getStatus().name())
+                .tipo(lancamento.getTipo().name())
+                .usuario(lancamento.getUsuario().getId())
+                .build();
     }
 
     private Lancamento converter(LancamentoDTO dto) {
