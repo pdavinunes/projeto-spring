@@ -2,7 +2,6 @@ import React from 'react';
 
 import Rotas from './rotas'
 import Navbar from '../components/navbar'
-import { Button } from 'primereact/button';
 
 import 'toastr/build/toastr.min.js'
 
