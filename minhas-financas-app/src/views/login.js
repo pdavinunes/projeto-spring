@@ -59,8 +59,10 @@ class Login extends React.Component {
                                                     value={this.state.senha}
                                                     onChange={e => this.setState({ senha: e.target.value })} />
                                             </FormGroup>
-                                            <button onClick={this.entrar} type="button" className="btn btn-success">Entrar</button>
-                                            <button onClick={this.prepareCadastrar} type="button" className="btn btn-danger">Cadastrar</button>
+                                            <button onClick={this.entrar} type="button" className="btn btn-success">
+                                            <i className="pi pi-sign-in"></i> Entrar</button>
+                                            <button onClick={this.prepareCadastrar} type="button" className="btn btn-danger">
+                                            <i className="pi pi-plus"></i> Cadastrar</button>
                                         </fieldset>
                                     </div>
                                 </div>
